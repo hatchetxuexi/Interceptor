@@ -604,7 +604,7 @@ $CACertificateCheck = (Get-ChildItem Cert:\CurrentUser\My | Where-Object {$_.Sub
 							
 if ($CACertificateCheck -eq $null)
 {
-[console]::WriteLine("**** Cert Created For $CertSubjectName *******`n")
+[console]::WriteLine("**** CA Cert Created *******`n")
 Invoke-CreateCertificate "__Interceptor_Trusted_Root" $true
 }
 else
