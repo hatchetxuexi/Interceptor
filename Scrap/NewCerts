@@ -1,0 +1,9 @@
+$CA= New-SelfSignedCertificate -Type Custom -Subject "CN=__Interceptorv4_ROOTCA_DO_NOT_TRUST" -KeyUsage CertSign -KeyAlgorithm ECDSA_nistP256 -CurveExport CurveName -CertStoreLocation "Cert:\CurrentUser\My"
+$StoreScope = "CurrentUser"
+		$StoreName = "Root"
+		$store = New-Object System.Security.Cryptography.X509Certificates.X509Store $StoreName, $StoreScope
+		$store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]::ReadWrite)
+		$store.Add($CA)
+		$store.Close()
+
+$Cert = New-SelfSignedCertificate -Signer $CA -Type Custom -Subject "CN=www.google.com"  -KeyUsage @("CertSign", "KeyAgreement", "DataEncipherment", "KeyEncipherment", "NonRepudiation", "DigitalSignature") -KeyAlgorithm ECDSA_nistP256 -CurveExport CurveName -CertStoreLocation "Cert:\CurrentUser\My"
